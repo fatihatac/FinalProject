@@ -27,10 +27,21 @@ namespace ConsoleUI
         {
             IProductService productService = new ProductManager(new EfProductDal());
 
-            foreach (var product in productService.GetProductDetails())
+            var result = productService.GetProductDetails();
+
+            if (result.Success==true)
             {
-                Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+            
         }
     }
 }
